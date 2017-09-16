@@ -22,7 +22,6 @@ var people []Person
 
 // our main function
 func main() {
-
     people = append(people, Person{ID: "1", Firstname: "John", Lastname: "Doe", Address: &Address{City: "City X", State: "State X"}})
     people = append(people, Person{ID: "2", Firstname: "Koko", Lastname: "Doe", Address: &Address{City: "City Z", State: "State Y"}})
     people = append(people, Person{ID: "3", Firstname: "Francis", Lastname: "Sunday"})
@@ -35,6 +34,12 @@ func main() {
     log.Fatal(http.ListenAndServe(":8000", router))
 }
 
+func GetPerson(w http.ResponseWriter, r *http.Request) {
+    params := mux.Vars(r)
+    for _, item := range people {
+        if item.ID == params["id"]
+    }
+}
 func GetPeople(w http.ResponseWriter, r *http.Request) {
     json.NewEncoder(w).Encode(people)
 }
